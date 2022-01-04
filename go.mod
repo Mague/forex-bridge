@@ -11,8 +11,8 @@ require (
 	github.com/swaggo/swag v1.7.8
 	github.com/swaggo/swag/example/celler v0.0.0-20211224142954-1a8733483c24
 	gopkg.in/go-playground/validator.v8 v8.18.2
-	gorm.io/datatypes v1.0.5
-	gorm.io/driver/postgres v1.2.3
+	gorm.io/datatypes v1.0.5 // indirect
+	gorm.io/driver/postgres v1.2.3 // indirect
 	gorm.io/driver/sqlite v1.2.6
 	gorm.io/gorm v1.22.4
 )
