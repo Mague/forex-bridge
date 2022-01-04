@@ -1,11 +1,13 @@
 package api
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 	"github.com/swaggo/swag/example/celler/httputil"
 
+	"github.com/Mague/forex-bridge/models"
 	"github.com/Mague/forex-bridge/payloads"
 	"github.com/Mague/forex-bridge/repositories"
 )
@@ -52,21 +54,41 @@ func (this Operation) all(ctx *gin.Context) {
 // @Failure      500      {object}  httputil.HTTPError
 // @Router       /operations/add [post]
 func (this Operation) add(ctx *gin.Context) {
-	var invoice payloads.Operation
-
-	if err := ctx.ShouldBindJSON(&invoice); err != nil {
+	/* jsonData, err := ioutil.ReadAll(ctx.Request.Body)
+	if err != nil {
+		// Handle error
+		fmt.Println(err)
+	}
+	fmt.Println(string(jsonData))
+	*/
+	var operationsPayload payloads.Operation
+	if err := ctx.ShouldBindJSON(&operationsPayload); err != nil {
+		fmt.Println(err)
 		httputil.NewError(ctx, http.StatusBadRequest, err)
 		return
 	}
+	var operations []models.Operation
+	for i := 0; i < len(operationsPayload); i++ {
+		operations = append(operations, models.Operation{
+			AccountId:   operationsPayload[i].AccountId,
+			OrderNumber: operationsPayload[i].OrderNumber,
+			Symbol:      operationsPayload[i].Symbol,
+			OrderType:   operationsPayload[i].OrderType,
+			Price:       operationsPayload[i].Price,
+			StopLoss:    operationsPayload[i].StopLoss,
+			TakeProfit:  operationsPayload[i].TakeProfit,
+		})
+	}
 
 	repository := new(repositories.OperationRepository)
-	result := repository.Create(&invoice)
+	result := repository.Create(operations)
 	if result.Error != nil {
+		fmt.Println(result.Error)
 		httputil.NewError(ctx, http.StatusBadRequest, result.Error)
 		return
 	} else {
 
-		ctx.JSON(http.StatusCreated, result)
+		ctx.JSON(http.StatusCreated, operations)
 	}
 
 }

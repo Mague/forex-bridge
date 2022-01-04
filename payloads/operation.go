@@ -1,11 +1,11 @@
 package payloads
 
 type Operation []struct {
-	AccountId   uint    `json:"TR_ID" binding:"required"`
-	OrderNumber float32 `json:"POS_NUM" binding:"required"`
-	Symbol      string  `gorm:"size:50" json:"SYMBOL" binding:"required"`
-	OrderType   uint    `json:"ORD_TYPE" binding:"required"`
-	Price       float32 `json:"PRICE" binding:"required"`
-	StopLoss    float32 `json:"SL" binding:"required"`
-	TakeProfit  float32 `json:"TP" binding:"required"`
+	AccountId   uint    `json:"TR_ID"`
+	OrderNumber float32 `json:"POS_NUM"`
+	Symbol      string  `json:"SYMBOL"`
+	OrderType   uint    `json:"ORD_TYPE"`
+	Price       float32 `json:"PRICE"`
+	StopLoss    float32 `json:"SL"`
+	TakeProfit  float32 `json:"TP"`
 }
