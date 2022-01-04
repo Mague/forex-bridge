@@ -1,5 +1,5 @@
 # README #
-# forex-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 api #
+# forex-bridge api #
 
 ### Documentation ###
 * [Documentation](http://localhost:8081/swagger/index.html)
