@@ -1,0 +1,116 @@
+definitions:
+  httputil.HTTPError:
+    properties:
+      code:
+        example: 400
+        type: integer
+      message:
+        example: status bad request
+        type: string
+    type: object
+  models.Operation:
+    properties:
+      ORD_TYPE:
+        type: integer
+      POS_NUM:
+        type: number
+      PRICE:
+        type: number
+      SL:
+        type: number
+      SYMBOL:
+        type: string
+      TP:
+        type: number
+      TR_ID:
+        type: integer
+      id:
+        type: integer
+    required:
+    - ORD_TYPE
+    - POS_NUM
+    - PRICE
+    - SL
+    - SYMBOL
+    - TP
+    - TR_ID
+    type: object
+  payloads.Operation:
+    items:
+      properties:
+        ORD_TYPE:
+          type: integer
+        POS_NUM:
+          type: number
+        PRICE:
+          type: number
+        SL:
+          type: number
+        SYMBOL:
+          type: string
+        TP:
+          type: number
+        TR_ID:
+          type: integer
+      required:
+      - ORD_TYPE
+      - POS_NUM
+      - PRICE
+      - SL
+      - SYMBOL
+      - TP
+      - TR_ID
+      type: object
+    type: array
+info:
+  contact: {}
+  license: {}
+paths:
+  /operations:
+    get:
+      consumes:
+      - application/json
+      description: get operations
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Operation'
+            type: array
+      summary: List operations
+      tags:
+      - Operations
+  /operations/add:
+    post:
+      consumes:
+      - application/json
+      description: add by json operation
+      parameters:
+      - description: Add operation
+        in: body
+        name: operation
+        required: true
+        schema:
+          $ref: '#/definitions/payloads.Operation'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Operation'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+      summary: Add an operation
+      tags:
+      - Operations
+swagger: "2.0"

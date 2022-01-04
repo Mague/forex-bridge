@@ -1,0 +1,172 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {},
+        "license": {}
+    },
+    "paths": {
+        "/operations": {
+            "get": {
+                "description": "get operations",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Operations"
+                ],
+                "summary": "List operations",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.Operation"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/operations/add": {
+            "post": {
+                "description": "add by json operation",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Operations"
+                ],
+                "summary": "Add an operation",
+                "parameters": [
+                    {
+                        "description": "Add operation",
+                        "name": "operation",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/payloads.Operation"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Operation"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/httputil.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/httputil.HTTPError"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "httputil.HTTPError": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "example": 400
+                },
+                "message": {
+                    "type": "string",
+                    "example": "status bad request"
+                }
+            }
+        },
+        "models.Operation": {
+            "type": "object",
+            "required": [
+                "ORD_TYPE",
+                "POS_NUM",
+                "PRICE",
+                "SL",
+                "SYMBOL",
+                "TP",
+                "TR_ID"
+            ],
+            "properties": {
+                "ORD_TYPE": {
+                    "type": "integer"
+                },
+                "POS_NUM": {
+                    "type": "number"
+                },
+                "PRICE": {
+                    "type": "number"
+                },
+                "SL": {
+                    "type": "number"
+                },
+                "SYMBOL": {
+                    "type": "string"
+                },
+                "TP": {
+                    "type": "number"
+                },
+                "TR_ID": {
+                    "type": "integer"
+                },
+                "id": {
+                    "type": "integer"
+                }
+            }
+        },
+        "payloads.Operation": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "required": [
+                    "ORD_TYPE",
+                    "POS_NUM",
+                    "PRICE",
+                    "SL",
+                    "SYMBOL",
+                    "TP",
+                    "TR_ID"
+                ],
+                "properties": {
+                    "ORD_TYPE": {
+                        "type": "integer"
+                    },
+                    "POS_NUM": {
+                        "type": "number"
+                    },
+                    "PRICE": {
+                        "type": "number"
+                    },
+                    "SL": {
+                        "type": "number"
+                    },
+                    "SYMBOL": {
+                        "type": "string"
+                    },
+                    "TP": {
+                        "type": "number"
+                    },
+                    "TR_ID": {
+                        "type": "integer"
+                    }
+                }
+            }
+        }
+    }
+}
