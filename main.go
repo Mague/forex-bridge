@@ -49,6 +49,7 @@ func main() {
 
 	router.Use(CORSMiddleware())
 	router.Use(gin.Recovery())
+	router.LoadHTMLGlob("public/*")
 	initalizeRoutes(router)
 	router.Run(":" + port)
 }
